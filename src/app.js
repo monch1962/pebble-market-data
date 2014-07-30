@@ -36,7 +36,7 @@ main.on('click', 'select', function(e) {
         title: 'AAPL',
         subtitle: 'Apple'
       }, {
-        title: 'FGBL4U.EX',
+        title: 'FGBLU4.EX',
         subtitle: 'FGBL Sep14'
       }, {
         title: 'TLS.AX',
@@ -46,10 +46,10 @@ main.on('click', 'select', function(e) {
   });
   market_menu.on('select', function(e) {
     console.log('Selected item: ' + e.section + ' ' + e.item);
-    var card = new UI.Card();
     if (e.item == 0) {
       //AAPL
-      card.title('AAPL');
+      var card = new UI.Card();
+      card.title('Apple');
       //card.subtitle('Apple');
       ajax({
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=AAPL',
@@ -57,29 +57,29 @@ main.on('click', 'select', function(e) {
       }, function(market_data) {
         console.log('market_data: ' + market_data.last_price);
         card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
-                  'Timestamp: ' + market_data.timestamp + '\n' +
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
-                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
       });
     } else if (e.item == 1) {
       // FGBL4U.EX
-      card.title('FGBL4U.EX');
+      var card = new UI.Card();
+      card.title('Sept 14 Eurobund');
       //card.subtitle('FGBL Sep 14');
       ajax({
-        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=FGBL4U.EX',
+        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=FGBLU4.EX',
         type: 'json'
       }, function(market_data) {
         console.log('market_data: ' + market_data.last_price);
         card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
-                  'Timestamp: ' + market_data.timestamp + '\n' +
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
-                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
       });
     } else if (e.item == 2) {
       // TLS
-      card.title('TLS.AX');
+      var card = new UI.Card();
+      card.title('Telstra');
       //card.subtitle('Telstra');
       ajax({
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=TLS.AX',
@@ -87,13 +87,12 @@ main.on('click', 'select', function(e) {
       }, function(market_data) {
         console.log('market_data: ' + market_data);
         card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
-                  'Timestamp: ' + market_data.timestamp + '\n' +
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
-                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
       });
     }
-    card.show();
+    //card.show();
   });
   market_menu.show();
 });
