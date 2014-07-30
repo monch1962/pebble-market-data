@@ -7,19 +7,34 @@
 var UI = require('ui');
 var Vector2 = require('vector2');
 
+function now() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  if (m < 10) {
+    m = "0" + m;
+  }
+  var time_str = h + ":" + m;  
+  return time_str;
+}
+
+
 var main = new UI.Card({
   title: 'Market Data',
   icon: 'images/menu_icon.png',
-  //subtitle: 'Hello World!',
-  body: 'Press any button.'
+  //subtitle: time_str,
+  body: 'Press SELECT button ->'
 });
 
 main.show();
 
 main.on('click', 'select', function(e) {
-  var menu = new UI.Menu({
+  var market_menu = new UI.Menu({
     sections: [{
       items: [{
+        title: 'AAPL',
+        subtitle: 'Apple'
+      }, {
         title: 'FGBL4U.EX',
         subtitle: 'FGBL Sep14'
       }, {
@@ -28,10 +43,10 @@ main.on('click', 'select', function(e) {
       }]
     }]
   });
-  menu.on('select', function(e) {
+  market_menu.on('select', function(e) {
     console.log('Selected item: ' + e.section + ' ' + e.item);
   });
-  menu.show();
+  market_menu.show();
 });
 
 //main.on('click', 'select', function(e) {
