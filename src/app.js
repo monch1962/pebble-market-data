@@ -50,34 +50,47 @@ main.on('click', 'select', function(e) {
     if (e.item == 0) {
       //AAPL
       card.title('AAPL');
-      card.subtitle('Apple');
+      //card.subtitle('Apple');
       ajax({
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=AAPL',
         type: 'json'
       }, function(market_data) {
-        console.log('market_data: ' + market_data);
+        console.log('market_data: ' + market_data.last_price);
+        card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
+                  'Timestamp: ' + market_data.timestamp + '\n' +
+                  'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+        card.show();
       });
     } else if (e.item == 1) {
       // FGBL4U.EX
       card.title('FGBL4U.EX');
-      card.subtitle('FGBL Sep 14');
+      //card.subtitle('FGBL Sep 14');
       ajax({
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=FGBL4U.EX',
         type: 'json'
       }, function(market_data) {
         console.log('market_data: ' + market_data.last_price);
-        card.body('Last: ' + market_data.last_price + '\n' +
-                  'Timestamp: ' + market_data.last_timestamp + '\n');
+        card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
+                  'Timestamp: ' + market_data.timestamp + '\n' +
+                  'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+        card.show();
       });
     } else if (e.item == 2) {
       // TLS
       card.title('TLS.AX');
-      card.subtitle('Telstra');
+      //card.subtitle('Telstra');
       ajax({
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=TLS.AX',
         type: 'json'
       }, function(market_data) {
         console.log('market_data: ' + market_data);
+        card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
+                  'Timestamp: ' + market_data.timestamp + '\n' +
+                  'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.last_timestamp);
+        card.show();
       });
     }
     card.show();
