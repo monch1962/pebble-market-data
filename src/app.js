@@ -4,6 +4,7 @@
  * This is where you write your app.
  */
 
+var ajax = require('ajax');
 var UI = require('ui');
 var Vector2 = require('vector2');
 
@@ -60,10 +61,22 @@ main.on('click', 'select', function(e) {
       // FGBL4U.EX
       card.title('FGBL4U.EX');
       card.subtitle('FGBL Sep 14');
+      ajax({
+        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=FGBL4U.EX',
+        type: 'json'
+      }, function(market_data) {
+        console.log('market_data: ' + market_data);
+      });
     } else if (e.item == 2) {
       // TLS
       card.title('TLS.AX');
       card.subtitle('Telstra');
+      ajax({
+        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=TLS.AX',
+        type: 'json'
+      }, function(market_data) {
+        console.log('market_data: ' + market_data);
+      });
     }
     card.show();
   });
