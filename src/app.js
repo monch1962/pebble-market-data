@@ -65,7 +65,9 @@ main.on('click', 'select', function(e) {
         url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=FGBL4U.EX',
         type: 'json'
       }, function(market_data) {
-        console.log('market_data: ' + market_data);
+        console.log('market_data: ' + market_data.last_price);
+        card.body('Last: ' + market_data.last_price + '\n' +
+                  'Timestamp: ' + market_data.last_timestamp + '\n');
       });
     } else if (e.item == 2) {
       // TLS
