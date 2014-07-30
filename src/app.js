@@ -45,6 +45,27 @@ main.on('click', 'select', function(e) {
   });
   market_menu.on('select', function(e) {
     console.log('Selected item: ' + e.section + ' ' + e.item);
+    var card = new UI.Card();
+    if (e.item == 0) {
+      //AAPL
+      card.title('AAPL');
+      card.subtitle('Apple');
+      ajax({
+        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=AAPL',
+        type: 'json'
+      }, function(market_data) {
+        console.log('market_data: ' + market_data);
+      });
+    } else if (e.item == 1) {
+      // FGBL4U.EX
+      card.title('FGBL4U.EX');
+      card.subtitle('FGBL Sep 14');
+    } else if (e.item == 2) {
+      // TLS
+      card.title('TLS.AX');
+      card.subtitle('Telstra');
+    }
+    card.show();
   });
   market_menu.show();
 });
