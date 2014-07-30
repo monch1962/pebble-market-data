@@ -39,12 +39,16 @@ main.on('click', 'select', function(e) {
         title: 'FGBLU4.EX',
         subtitle: 'FGBL Sep14'
       }, {
+        title: 'GOOG',
+        subtitle: 'Google'
+      }, {
         title: 'TLS.AX',
         subtitle: 'Telstra'
       }]
     }]
   });
   market_menu.on('select', function(e) {
+    card = null;
     console.log('Selected item: ' + e.section + ' ' + e.item);
     if (e.item == 0) {
       //AAPL
@@ -77,6 +81,21 @@ main.on('click', 'select', function(e) {
         card.show();
       });
     } else if (e.item == 2) {
+      // FGBL4U.EX
+      var card = new UI.Card();
+      card.title('Google');
+      //card.subtitle('FGBL Sep 14');
+      ajax({
+        url: 'http://quiet-oasis-2159.herokuapp.com/marketdata/code=GOOG',
+        type: 'json'
+      }, function(market_data) {
+        console.log('market_data: ' + market_data.last_price);
+        card.body('Last: ' + market_data.last_price + '(' + market_data.delta + ')' + '\n' +
+                  'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
+                  'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
+        card.show();
+      });
+    } else if (e.item == 3) {
       // TLS
       var card = new UI.Card();
       card.title('Telstra');
