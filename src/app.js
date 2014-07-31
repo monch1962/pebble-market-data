@@ -7,6 +7,7 @@
 var ajax = require('ajax');
 var UI = require('ui');
 var Vector2 = require('vector2');
+//var navigator = require('navigator');
 
 function now() {
   var today = new Date();
@@ -19,12 +20,29 @@ function now() {
   return time_str;
 }
 
+function ConvertDDToDMS(dd) {
+    var deg = dd | 0; // truncate dd to get degrees
+    var frac = Math.abs(dd - deg); // get fractional part
+    var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
+    var sec = (frac * 3600 - min * 60) | 0;
+    return deg + "d " + min + "' " + sec + "\"";
+}
 
+//var latitude;
+//var longitude;
+
+//navigator.geolocation.getCurrentPosition(function(pos) {
+//  var coords = pos.coords;
+//  latitude = coords.latitude;
+//  longitude = coords.longitude;
+//  console.log('Latitude:' + latitude +'\n' + 'Longitude: ' + longitude);
+//});
+                                         
 var main = new UI.Card({
   title: 'Market Data',
   icon: 'images/menu_icon.png',
   //subtitle: time_str,
-  body: 'Press SELECT button ->'
+  body: 'Press SELECT button ->' + '\n'// + latitude + ':' + longitude
 });
 
 main.show();
@@ -44,11 +62,13 @@ main.on('click', 'select', function(e) {
       }, {
         title: 'TLS.AX',
         subtitle: 'Telstra'
+      }, {
+        title: 'Where am I?'
       }]
     }]
   });
   market_menu.on('select', function(e) {
-    card = null;
+    //card = null;
     console.log('Selected item: ' + e.section + ' ' + e.item);
     if (e.item == 0) {
       //AAPL
@@ -64,6 +84,7 @@ main.on('click', 'select', function(e) {
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
                   'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
+        card = null;
       });
     } else if (e.item == 1) {
       // FGBL4U.EX
@@ -79,6 +100,7 @@ main.on('click', 'select', function(e) {
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
                   'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
+        card = null;
       });
     } else if (e.item == 2) {
       // FGBL4U.EX
@@ -94,6 +116,7 @@ main.on('click', 'select', function(e) {
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
                   'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
+        card = null;
       });
     } else if (e.item == 3) {
       // TLS
@@ -109,11 +132,27 @@ main.on('click', 'select', function(e) {
                   'Range: ' + market_data.low + ' - ' + market_data.high + '\n' +
                   'Volume: ' + market_data.volume + ' @ ' + market_data.timestamp);
         card.show();
+        card = null;
+      });
+    } else if (e.item == 4) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        var coords = pos.coords;
+        var card = new UI.Card();
+        var lat_dms = ConvertDDToDMS(coords.latitude);
+        var long_dms = ConvertDDToDMS(coords.longitude);
+        card.body('Latitude: ' + '\n' +
+                  lat_dms + '\n' +
+                  'Longitude: ' + '\n'+ 
+                  long_dms );
+        card.show();
+        coords = card = lat_dms = long_dms = null;
       });
     }
-    //card.show();
-  });
+  }
+                 //card.show();
+                );
   market_menu.show();
+  market_menu = null;
 });
 
 //main.on('click', 'select', function(e) {
